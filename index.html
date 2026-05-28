@@ -417,16 +417,16 @@
     .hero-left { max-width: 100%; }
     .mobile-menu { padding: 20px; }
 
-    /* Reduce white space above robot image on mobile */
-    .why-spacer { min-height: 60px !important; }
+    /* Mobile: tight robot bridging, minimal gaps */
+    .why-spacer { min-height: 0px !important; }
     .float-img-wrap {
-      width: min(320px, 88vw) !important;
-      transform: translateX(-50%) translateY(44%) !important;
+      width: min(300px, 86vw) !important;
+      transform: translateX(-50%) translateY(20%) !important;
     }
     .float-img-wrap.in-view {
-      transform: translateX(-50%) translateY(42%) !important;
+      transform: translateX(-50%) translateY(18%) !important;
     }
-    .dark-head { padding: 180px 20px 40px !important; }
+    .dark-head { padding: 100px 20px 40px !important; }
   }
   @media (min-width: 768px) {
     header { padding: 20px 40px 0; }
