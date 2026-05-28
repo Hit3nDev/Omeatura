@@ -1223,21 +1223,11 @@
     animation: odometerTick 0.5s cubic-bezier(0.16,1,0.3,1) both;
   }
 
-  /* I. Contact section: grid lines draw in */
+  /* I. Contact section */
   #contact {
     position: relative;
     overflow: hidden;
   }
-  #contact::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 50%;
-    width: 1px; height: 0;
-    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.05), transparent);
-    transition: height 1.4s cubic-bezier(0.16,1,0.3,1) 0.3s;
-    pointer-events: none;
-  }
-  #contact.section-visible::before { height: 100%; }
 
   /* J. Nav pill: frosted glass shimmer on page load */
   @keyframes glassShimmer {
@@ -1833,16 +1823,7 @@
     }
   }
 
-  // C. Contact section visible class for grid line
-  const contactSection = document.getElementById('contact');
-  if (contactSection) {
-    const contactVisIO = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('section-visible'); contactVisIO.unobserve(e.target); }
-      });
-    }, { threshold: 0.1 });
-    contactVisIO.observe(contactSection);
-  }
+
 
   // D. Magnetic icon circles in dark section
   document.querySelectorAll('.icon-circle').forEach(ic => {
