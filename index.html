@@ -417,17 +417,20 @@
     .hero-left { max-width: 100%; }
     .mobile-menu { padding: 20px; }
 
-    /* Mobile: tight robot bridging, minimal gaps */
+    /* Mobile: zero gap between robot and dark section */
     .why-spacer { min-height: 0px !important; }
-    #why { padding-bottom: 0 !important; }
+    #why { padding-bottom: 0 !important; min-height: auto !important; }
+    /* Make robot sit flush at the bottom edge — bottom:0, no translateY offset */
     .float-img-wrap {
-      width: min(300px, 86vw) !important;
-      transform: translateX(-50%) translateY(-5%) !important;
+      width: min(290px, 85vw) !important;
+      bottom: 0 !important;
+      transform: translateX(-50%) translateY(50%) !important;
     }
     .float-img-wrap.in-view {
-      transform: translateX(-50%) translateY(-8%) !important;
+      transform: translateX(-50%) translateY(50%) !important;
     }
-    .dark-head { padding: 52px 20px 32px !important; }
+    /* #dark gets enough top padding so robot head clears the heading */
+    .dark-head { padding: 36px 20px 32px !important; }
   }
   @media (min-width: 768px) {
     header { padding: 20px 40px 0; }
@@ -558,7 +561,7 @@
   /* DARK HEADING */
   .dark-head {
     position: relative; z-index: 10;
-    padding: 120px 64px 64px;
+    padding: 56px 64px 64px;
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -924,7 +927,7 @@
   @media (max-width: 768px) {
     #why { padding: 64px 20px 0; }
     .why-footer { display: none; }
-    .dark-head { padding: 100px 20px 40px; }
+    .dark-head { padding: 56px 20px 40px; }
     #contact { padding: 64px 20px; }
     .dark-footer { padding: 24px 20px; }
     .panel-left { padding: 24px 20px; }
