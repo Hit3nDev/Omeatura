@@ -417,19 +417,17 @@
     .hero-left { max-width: 100%; }
     .mobile-menu { padding: 20px; }
 
-    /* Mobile: zero gap between robot and dark section */
-    .why-spacer { min-height: 0px !important; }
+    /* Mobile: robot flush at seam, pills clear above */
+    .why-spacer { min-height: 120px !important; }
     #why { padding-bottom: 0 !important; min-height: auto !important; }
-    /* Make robot sit flush at the bottom edge — bottom:0, no translateY offset */
     .float-img-wrap {
-      width: min(290px, 85vw) !important;
+      width: min(260px, 80vw) !important;
       bottom: 0 !important;
       transform: translateX(-50%) translateY(50%) !important;
     }
     .float-img-wrap.in-view {
       transform: translateX(-50%) translateY(50%) !important;
     }
-    /* #dark gets enough top padding so robot head clears the heading */
     .dark-head { padding: 36px 20px 32px !important; }
   }
   @media (min-width: 768px) {
