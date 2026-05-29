@@ -40,18 +40,20 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    background: #f0f0ee;
+    background: #ffffff;
   }
 
   /* VIDEO */
   #hero-video {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0;
-    transition: opacity 1.4s ease;
+   position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+object-fit: contain;
+pointer-events: none;
+z-index: 0;
+opacity: 0;
+transition: opacity 1.4s ease;
   }
   #hero-video.visible { opacity: 1; }
 
@@ -1357,7 +1359,7 @@
 
   <!-- Background video (delayed 2800ms) -->
   <video id="hero-video" autoplay loop muted playsinline>
-    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_215831_c6a8989c-d716-4d8d-8745-e972a2eec711.mp4" type="video/mp4">
+    <source src="https://res.cloudinary.com/dajekho84/video/upload/v1780088644/Untitled_design_1_vd3vch.mp4" type="video/mp4">
   </video>
 
   <!-- HEADER: logo pill + nav pill -->
