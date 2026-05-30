@@ -40,12 +40,12 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    background: #ffffff;
+    background: #f0f0ee;
   }
 
   /* VIDEO */
   #hero-video {
-   position: absolute; inset: 0;
+    position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
     pointer-events: none;
@@ -1335,6 +1335,205 @@
 
   /* ══ END SCROLL ANIMATION BASE STATES ══════════════ */
 
+
+  /* ══ FOUNDER SECTION ════════════════════════════════ */
+  #founder {
+    position: relative;
+    width: 100%;
+    background: #f7f7f5;
+    z-index: 20;
+    padding: 96px 64px 96px;
+    border-top: 1px solid rgba(17,17,17,0.06);
+  }
+
+  .founder-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 64px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .founder-tag.visible { opacity: 1; transform: translateY(0); }
+  .founder-tag .fn { color: #999; }
+  .founder-tag .fl { color: #111; font-weight: 700; margin-left: 8px; }
+
+  .founder-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  /* LEFT: name + title + quote */
+  .founder-left {}
+
+  .founder-name {
+    font-family: var(--sans);
+    font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    color: #111;
+    margin-bottom: 16px;
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s,
+                transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s;
+  }
+  .founder-name.visible { opacity: 1; transform: translateY(0); }
+
+  .founder-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 32px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+  }
+  .founder-title.visible { opacity: 1; transform: translateY(0); }
+
+  .founder-quote {
+    font-family: var(--sans);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    font-weight: 400;
+    color: #333;
+    line-height: 1.65;
+    letter-spacing: -0.02em;
+    max-width: 480px;
+    border-left: 2px solid #111;
+    padding-left: 20px;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.9s ease 0.3s, transform 0.9s ease 0.3s;
+  }
+  .founder-quote.visible { opacity: 1; transform: translateX(0); }
+
+  /* Credential pills row */
+  .founder-creds {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease 0.4s, transform 0.7s ease 0.4s;
+  }
+  .founder-creds.visible { opacity: 1; transform: translateY(0); }
+  .founder-cred {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #111;
+    border: 1px solid rgba(17,17,17,0.15);
+    border-radius: 4px;
+    padding: 6px 12px;
+    background: rgba(17,17,17,0.03);
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .founder-cred:hover { background: #111; color: #fff; border-color: #111; }
+  .founder-cred-dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #4a90e2; flex-shrink: 0;
+  }
+
+  /* RIGHT: timeline */
+  .founder-right {}
+
+  .founder-timeline {
+    list-style: none;
+    position: relative;
+    padding-left: 28px;
+  }
+  .founder-timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px; top: 6px; bottom: 6px;
+    width: 1px;
+    background: rgba(17,17,17,0.1);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 1.2s cubic-bezier(0.16,1,0.3,1) 0.3s;
+  }
+  .founder-timeline.visible::before { transform: scaleY(1); }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 32px;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1),
+                transform 0.65s cubic-bezier(0.16,1,0.3,1);
+  }
+  .timeline-item.visible { opacity: 1; transform: translateX(0); }
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-dot {
+    position: absolute;
+    left: -28px; top: 5px;
+    width: 13px; height: 13px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid rgba(17,17,17,0.2);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .timeline-item:hover .timeline-dot {
+    background: #111; border-color: #111;
+  }
+
+  .timeline-num {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    color: #bbb;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .timeline-role {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 600;
+    color: #111;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+
+  .timeline-org {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #4a90e2;
+    margin-bottom: 6px;
+  }
+
+  .timeline-desc {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: #666;
+    line-height: 1.65;
+    max-width: 380px;
+  }
+
+  @media (max-width: 767px) {
+    #founder { padding: 64px 20px; }
+    .founder-grid { grid-template-columns: 1fr; gap: 48px; }
+    .founder-quote { font-size: 1rem; }
+  }
+  /* ══ END FOUNDER SECTION ════════════════════════════ */
+
   /* ─── RESPONSIVE ────────────────────────────────── */
   @media (max-width: 768px) {
     #why { padding: 64px 20px 0; }
@@ -1460,16 +1659,16 @@
 
       <!-- Badge — single pill row -->
       <a href="#contact" class="hero-badge">
-        CES 2025 &amp; UN / ITU Speaker
+        CES 2025 · UN/ITU · RoboBusiness · IFA Berlin
         <span class="badge-arrow">→</span>
       </a>
 
       <!-- Headline — always fully clear of any subject -->
       <h1 class="hero-headline">
-        Simple, autonomous robotics<br>built for India's warehouses.
+        Omi-1: Autonomous warehouse<br>picking, built for the world.
       </h1>
 
-      <p class="hero-sub">Reclaim your operations now.</p>
+      <p class="hero-sub">400+ picks/hr. 15 kg payload. Zero floor modifications.</p>
 
       <a href="#contact" class="cta-btn">
         Schedule a Meeting
@@ -1483,23 +1682,23 @@
     <!-- COL 3: founder spec panel -->
     <div class="hero-right">
       <div class="spec-row">
+        <div class="spec-label">Product</div>
+        <div class="spec-value">Omi-1</div>
+        <div class="spec-sub">Autonomous shelf-picker</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-label">Throughput</div>
+        <div class="spec-value">400+ picks/hr</div>
+      </div>
+      <div class="spec-row">
         <div class="spec-label">Founder</div>
-        <div class="spec-value">Abhishek</div>
-        <div class="spec-sub">15+ yrs hardware<br>engineering</div>
+        <div class="spec-value">Abhishek Gupta</div>
+        <div class="spec-sub">CEO · 20+ yrs hardware</div>
       </div>
       <div class="spec-row">
-        <div class="spec-label">Recognition</div>
+        <div class="spec-label">Validated</div>
         <div class="spec-value">CES 2025</div>
-      </div>
-      <div class="spec-row">
-        <div class="spec-label">Speaker</div>
-        <div class="spec-value">UN / ITU</div>
-        <div class="spec-sub">Global stage</div>
-      </div>
-      <div class="spec-row">
-        <div class="spec-label">Proof</div>
-        <div class="spec-value">Open Droids</div>
-        <div class="spec-sub">Co-founder</div>
+        <div class="spec-sub">UN/ITU · RoboBusiness</div>
       </div>
       <button class="view-btn" onclick="document.getElementById('why').scrollIntoView({behavior:'smooth'})">
         <div class="view-btn-circle">
@@ -1532,25 +1731,25 @@
   </div>
 
   <h2 class="why-heading" id="why-heading">
-    India has 500,000 warehouses.<br>90% are still entirely manual.
+    Warehouse picking is 55% of logistics costs.<br>80% of facilities still run entirely on manual labour.
   </h2>
 
   <div class="pills" id="why-pills">
     <button class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
-      Hardware Expertise
+      20+ Yrs Hardware
     </button>
     <button class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      India-First
+      Global Deployment
     </button>
     <button class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Co-Dev Model
+      90-Day Co-Dev Pilot
     </button>
     <button class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-      Proven Track Record
+      400+ Picks / Hr
     </button>
     <button class="pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
@@ -1566,7 +1765,7 @@
   </div>
 
   <div class="why-footer">
-    <span>WE DON'T JUST BUILD ROBOTS.</span>
+    <span>OMI-1 · EMBODIED AI · WAREHOUSE AUTOMATION</span>
     <span>OMETAURA AI (C) 2026</span>
   </div>
 </section>
@@ -1580,23 +1779,23 @@
     <h2 class="dark-title" id="dark-title-el">
       <span class="dark-title-word">Built</span>
       <span class="dark-title-word anim-d1">from</span>
-      <span class="dark-title-word anim-d2">15</span>
+      <span class="dark-title-word anim-d2">20</span>
       <span class="dark-title-word anim-d3">years</span>
       <span class="dark-title-word anim-d4">of</span>
       <span class="dark-title-word anim-d5">hardware</span>
       <span class="dark-title-word anim-d5">mastery</span>
       <span class="dark-title-word anim-d6">&amp;</span>
-      <span class="dark-title-word anim-d6">discovery.</span>
+      <span class="dark-title-word anim-d6">execution.</span>
     </h2>
     <div class="dark-right">
       <div class="dark-tagline" id="dark-tagline">
-        WE DON'T JUST DISPLAY TECH<br>
-        WE SOLVE INDIA'S LOGISTICS CRISIS
+        REDEFINING AUTOMATION,<br>
+        EMBODIED AI &amp; THE FUTURE OF WORK
       </div>
       <div class="dark-pills">
-        <span class="dark-pill anim-scale-in anim-d1" id="dpill-0">Credible</span>
-        <span class="dark-pill anim-scale-in anim-d2" id="dpill-1">India-First</span>
-        <span class="dark-pill anim-scale-in anim-d3" id="dpill-2">Scalable</span>
+        <span class="dark-pill anim-scale-in anim-d1" id="dpill-0">Engineered</span>
+        <span class="dark-pill anim-scale-in anim-d2" id="dpill-1">Field-Proven</span>
+        <span class="dark-pill anim-scale-in anim-d3" id="dpill-2">Commercially Viable</span>
       </div>
     </div>
   </div>
@@ -1631,25 +1830,118 @@
   </div>
 
   <div class="divider divider-anim" id="divider-2"></div>
-  <div class="dark-footer" id="dark-footer-el">BUILDING INDIA'S AUTOMATED FUTURE</div>
+  <div class="dark-footer" id="dark-footer-el">OMI-1 — THE WORLD'S MOST ACCESSIBLE AUTONOMOUS PICKER</div>
+</section>
+
+
+
+<!-- ══════════ SECTION: FOUNDER ══════════ -->
+<section id="founder">
+
+  <div class="founder-tag" id="founder-tag">
+    <span class="fn">[ 03 ]</span>
+    <span class="fl">The Founder</span>
+  </div>
+
+  <div class="founder-grid">
+
+    <!-- LEFT: identity + quote + credentials -->
+    <div class="founder-left">
+
+      <h2 class="founder-name" id="founder-name">
+        Abhishek<br>Gupta.
+      </h2>
+      <div class="founder-title" id="founder-title">
+        CEO &amp; Founder — Ometaura AI
+      </div>
+
+      <blockquote class="founder-quote" id="founder-quote">
+        "A rare combination of deep hardware engineering, enterprise product leadership, and startup execution — purpose-built to lead the global robotics revolution."
+      </blockquote>
+
+      <div class="founder-creds" id="founder-creds">
+        <span class="founder-cred"><span class="founder-cred-dot"></span>MBA — HEC Montréal</span>
+        <span class="founder-cred"><span class="founder-cred-dot"></span>MS Electrical Eng — Stony Brook</span>
+        <span class="founder-cred"><span class="founder-cred-dot"></span>US Dept of Energy</span>
+        <span class="founder-cred"><span class="founder-cred-dot"></span>Brookhaven National Lab</span>
+        <span class="founder-cred"><span class="founder-cred-dot"></span>Reliance Jio</span>
+        <span class="founder-cred"><span class="founder-cred-dot"></span>HSB Canada / Munich Re</span>
+        <span class="founder-cred"><span class="founder-cred-dot"></span>Open Droids · SF</span>
+        <span class="founder-cred"><span class="founder-cred-dot"></span>CES 2025 Exhibitor</span>
+        <span class="founder-cred"><span class="founder-cred-dot"></span>UN/ITU Speaker</span>
+        <span class="founder-cred"><span class="founder-cred-dot"></span>RoboBusiness SF</span>
+        <span class="founder-cred"><span class="founder-cred-dot"></span>IFA Berlin</span>
+        <span class="founder-cred"><span class="founder-cred-dot"></span>Humanoids Summit SF</span>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: career timeline -->
+    <div class="founder-right">
+      <ul class="founder-timeline" id="founder-timeline">
+
+        <li class="timeline-item" id="tl-0">
+          <div class="timeline-dot"></div>
+          <div class="timeline-num">01 · Foundation</div>
+          <div class="timeline-role">Dual Graduate — Engineering &amp; Business</div>
+          <div class="timeline-org">HEC Montréal · Stony Brook University</div>
+          <div class="timeline-desc">MBA paired with an MS in Electrical Engineering — the rare dual lens of systems thinking and commercial execution that underpins everything Ometaura builds.</div>
+        </li>
+
+        <li class="timeline-item" id="tl-1">
+          <div class="timeline-dot"></div>
+          <div class="timeline-num">02 · Nuclear Engineering</div>
+          <div class="timeline-role">Hardware Engineer — Critical Systems</div>
+          <div class="timeline-org">US Dept of Energy · Brookhaven National Accelerator</div>
+          <div class="timeline-desc">Designed hardware for nuclear and biomedical research facilities where failure is not an option. The same precision and safety-first philosophy is baked into every Omi-1 component.</div>
+        </li>
+
+        <li class="timeline-item" id="tl-2">
+          <div class="timeline-dot"></div>
+          <div class="timeline-num">03 · Telecom at Scale</div>
+          <div class="timeline-role">Product Manager — National 4G Rollout</div>
+          <div class="timeline-org">Reliance Jio · India</div>
+          <div class="timeline-desc">Led the rollout of Jio's 4G network and JioFi Smart City — one of the fastest large-scale technology deployments in history. Proof that Abhishek builds things that actually ship.</div>
+        </li>
+
+        <li class="timeline-item" id="tl-3">
+          <div class="timeline-dot"></div>
+          <div class="timeline-num">04 · IoT &amp; Sensors</div>
+          <div class="timeline-role">Commercialisation Lead</div>
+          <div class="timeline-org">HSB Canada / Munich Re</div>
+          <div class="timeline-desc">Took IoT sensor technology from lab to commercial deployment at one of the world's largest reinsurance groups — validating hardware in enterprise environments at global scale.</div>
+        </li>
+
+        <li class="timeline-item" id="tl-4">
+          <div class="timeline-dot"></div>
+          <div class="timeline-num">05 · Robotics</div>
+          <div class="timeline-role">Co-Founder</div>
+          <div class="timeline-org">Open Droids Robotics · San Francisco, USA</div>
+          <div class="timeline-desc">Co-founded and shipped R1D3 (single-arm), R2D3 (dual-arm), and Droid1 (healthcare robot). Working prototypes. Real hardware. Demonstrated at CES 2025, RoboBusiness, IFA Berlin, and the UN/ITU AI for Good Global Summit.</div>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
 </section>
 
 
 <!-- ══════════ SECTION 4: CONTACT ══════════ -->
 <section id="contact">
   <div class="contact-tag" id="contact-tag-el">
-    <span class="cn">[ 05 ]</span>
+    <span class="cn">[ 06 ]</span>
     <span class="cl">Get In Touch</span>
   </div>
 
   <div class="contact-grid">
     <div>
       <h2 class="contact-heading">
-        Ready to<br>pilot with<br>Ometaura?
+        Partner with<br>Ometaura AI.<br>Build the future.
       </h2>
       <br>
       <p style="font-size:13px;color:#666;line-height:1.7;max-width:320px;">
-        90-day co-development pilot. Direct founder involvement. Pre-order rights, press release, and case study included for partners.
+        Omi-1 delivers 400+ picks/hr with zero floor modifications. Our 90-day co-development pilot gives partners direct founder access, pre-order rights, a joint press release, and a published case study.
       </p>
     </div>
 
@@ -1660,7 +1952,7 @@
       </div>
       <div>
         <div class="contact-item-label anim-fade-up anim-d2" id="ci-1">LinkedIn</div>
-        <div class="contact-item-value"><a href="https://linkedin.com" target="_blank">linkedin.com/in/abhishek</a></div>
+        <div class="contact-item-value"><a href="https://linkedin.com/in/abhishek-gupta-17881518" target="_blank">linkedin.com/in/abhishek-gupta-17881518</a></div>
       </div>
       <div>
         <div class="contact-item-label anim-fade-up anim-d3" id="ci-2">Response Time</div>
@@ -1670,11 +1962,11 @@
         <div class="contact-item-label anim-fade-up anim-d4" id="ci-3">Pilot Duration</div>
         <div class="contact-item-value">90 days → 6 months</div>
       </div>
-      <a href="https://calendly.com" target="_blank" class="calendly-cta">
+      <a href="https://calendly.com/abhi-ometaura/30min" target="_blank" class="calendly-cta">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Schedule a Meeting
       </a>
-      <div class="contact-note">15 / 30 / 60 minute slots available</div>
+      <div class="contact-note">30-min intro · 60-min deep-dive · Direct founder access</div>
     </div>
   </div>
 </section>
@@ -1720,11 +2012,11 @@
 
   // ── CHAPTER DATA ─────────────────────────────────
   const chapters = [
-    { name: "The Founder's Journey", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871696/ChatGPT_Image_May_27_2026_02_14_27_PM_1_tdrrmf.png" },
-    { name: "India's Warehouse Crisis", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871252/01d98a63-915e-4e9e-8098-d118cef3e431-removebg-preview_gyrccr.png" },
-    { name: "The Ometaura Platform", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871809/closeup-futuristic-robot-head-showcasing-advanced-artificial-intelligence-technology-innovation-robotics_1193327-19706_gdxjeb.png" },
-    { name: "Co-Development Model", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871740/ChatGPT_Image_May_27_2026_02_18_18_PM_1_zshu52.png" },
-    { name: "Global Recognition", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871252/1d8f84ae-4b48-4d38-aa64-1a1b2adf43f2-removebg-preview_uir2hf.png" }
+    { name: "Abhishek Gupta — Founder", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871696/ChatGPT_Image_May_27_2026_02_14_27_PM_1_tdrrmf.png" },
+    { name: "The $800B Logistics Problem", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871252/01d98a63-915e-4e9e-8098-d118cef3e431-removebg-preview_gyrccr.png" },
+    { name: "Omi-1: How It Works", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871809/closeup-futuristic-robot-head-showcasing-advanced-artificial-intelligence-technology-innovation-robotics_1193327-19706_gdxjeb.png" },
+    { name: "90-Day Pilot Programme", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871740/ChatGPT_Image_May_27_2026_02_18_18_PM_1_zshu52.png" },
+    { name: "Global Acclaim & Validation", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871252/1d8f84ae-4b48-4d38-aa64-1a1b2adf43f2-removebg-preview_uir2hf.png" }
   ];
 
   let activeChapter = 2;
@@ -2102,8 +2394,8 @@
         if (e.isIntersecting) {
           // Briefly highlight the numbers
           const text = e.target.innerHTML;
-          e.target.innerHTML = text.replace(/500,000/g, '<span class="num-highlight">500,000</span>')
-                                   .replace(/90%/g, '<span class="num-highlight">90%</span>');
+          e.target.innerHTML = text.replace(/55%/g, '<span class="num-highlight">55%</span>')
+                                   .replace(/80%/g, '<span class="num-highlight">80%</span>');
           numIO.unobserve(e.target);
         }
       });
@@ -2131,6 +2423,30 @@
   }, { threshold: 0.15 });
   const contactGrid = document.querySelector('.contact-grid');
   if (contactGrid) contactIO.observe(contactGrid);
+
+
+  // ── Founder section observers ──
+  observe('#founder-tag',      'visible', { threshold: 0.3 });
+  observe('#founder-name',     'visible', { threshold: 0.2 });
+  observe('#founder-title',    'visible', { threshold: 0.2 });
+  observe('#founder-quote',    'visible', { threshold: 0.2 });
+  observe('#founder-creds',    'visible', { threshold: 0.2 });
+
+  // Timeline: stagger each item
+  const tlIO = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        const items = e.target.querySelectorAll('.timeline-item');
+        items.forEach((item, i) => {
+          setTimeout(() => item.classList.add('visible'), i * 110);
+        });
+        tlIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  const tlEl = document.getElementById('founder-timeline');
+  if (tlEl) tlIO.observe(tlEl);
 
   // ── Animate chapter items on first build ──
   // Mark list as animation-ready before first buildChapterList call
