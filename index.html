@@ -1744,12 +1744,350 @@
 
   @media (max-width: 767px) {
     #firstmover { padding: 64px 20px 60px; }
-    .codev-head, .codev-row { grid-template-columns: 1fr; }
-    .codev-cell + .codev-cell { border-left: none; border-top: 1px solid rgba(17,17,17,0.07); }
-    .codev-head-cell.you { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .fm-cta { margin-bottom: 56px; }
+    .codev-head { display: none; } /* hide header on mobile — labels inline */
+    .codev-row { grid-template-columns: 1fr; gap: 0; }
+    .codev-cell {
+      padding: 14px 16px;
+      font-size: 12px;
+      position: relative;
+      padding-top: 22px;
+    }
+    .codev-cell::before {
+      content: 'YOU BRING';
+      position: absolute;
+      top: 8px; left: 16px;
+      font-family: var(--mono);
+      font-size: 8px;
+      letter-spacing: 0.16em;
+      color: #4a90e2;
+      font-weight: 700;
+    }
+    .codev-cell.we-cell::before {
+      content: 'WE BRING';
+      color: #d4960a;
+    }
+    .codev-cell + .codev-cell {
+      border-left: none;
+      border-top: 1px solid rgba(17,17,17,0.07);
+    }
+    .codev-row + .codev-row { border-top: 2px solid rgba(17,17,17,0.06); }
+    .fm-cta { margin-bottom: 48px; font-size: 12px; padding: 11px 18px; }
+    .fm-headline { font-size: 1.75rem; }
+    .codev-note { padding: 16px; }
   }
   /* ══ END FIRST MOVER + CO-DEV SECTION ══════════════ */
+
+
+  /* ══ GLOBAL ACCLAIM VIDEO SECTION ══════════════════ */
+  #acclaim {
+    position: relative;
+    width: 100%;
+    background: var(--dark-bg);
+    color: #fff;
+    padding: 96px 64px 80px;
+    z-index: 22;
+    border-top: 1px solid #1a1a1a;
+  }
+
+  .acclaim-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .acclaim-tag.visible { opacity: 1; transform: translateY(0); }
+  .acclaim-tag .an { color: #555; }
+  .acclaim-tag .al { color: #fff; font-weight: 700; margin-left: 8px; }
+
+  .acclaim-heading {
+    font-family: var(--sans);
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s,
+                transform 0.9s cubic-bezier(0.16,1,0.3,1) 0.1s;
+  }
+  .acclaim-heading.visible { opacity: 1; transform: translateY(0); }
+
+  .acclaim-sub {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: #666;
+    line-height: 1.65;
+    max-width: 560px;
+    margin-bottom: 64px;
+    opacity: 0;
+    transition: opacity 0.7s ease 0.2s;
+  }
+  .acclaim-sub.visible { opacity: 1; }
+
+  /* Video grid */
+  .acclaim-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .video-card {
+    display: block;
+    text-decoration: none;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #222;
+    background: #0f0f0f;
+    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+                border-color 0.25s, box-shadow 0.35s;
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .video-card.visible { opacity: 1; transform: translateY(0); }
+  .video-card:hover {
+    transform: translateY(-4px);
+    border-color: #444;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  }
+
+  .video-thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #111;
+  }
+  .video-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease, filter 0.3s ease;
+    filter: brightness(0.85);
+  }
+  .video-card:hover .video-thumb img {
+    transform: scale(1.04);
+    filter: brightness(1);
+  }
+
+  /* Play button overlay */
+  .video-play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.12);
+    transition: background 0.25s;
+  }
+  .video-card:hover .video-play { background: rgba(0,0,0,0.0); }
+  .play-circle {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.16,1,0.3,1),
+                background 0.25s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .video-card:hover .play-circle {
+    transform: scale(1.1);
+    background: #fff;
+  }
+  .play-triangle {
+    width: 0; height: 0;
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 16px solid #111;
+    margin-left: 3px;
+  }
+
+  /* Stage badge on thumbnail — prominent bottom bar */
+  .video-badge {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
+    padding: 28px 16px 12px;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    font-weight: 700;
+  }
+  .video-badge::before {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #4a90e2;
+    flex-shrink: 0;
+    margin-bottom: 1px;
+    box-shadow: 0 0 8px rgba(74,144,226,0.8);
+    animation: badgeDot 2s ease-in-out infinite;
+  }
+  @keyframes badgeDot {
+    0%,100% { opacity: 1; box-shadow: 0 0 6px rgba(74,144,226,0.8); }
+    50%      { opacity: 0.6; box-shadow: 0 0 14px rgba(74,144,226,1); }
+  }
+
+  /* Card body */
+  .video-body {
+    padding: 18px 20px 20px;
+  }
+  .video-num {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    color: #4a90e2;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .video-num::before {
+    content: '';
+    display: inline-block;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #4a90e2;
+    flex-shrink: 0;
+  }
+  .video-title {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.45;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .video-desc {
+    font-family: var(--sans);
+    font-size: 11px;
+    color: #666;
+    line-height: 1.55;
+  }
+  .video-link-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #4a90e2;
+    margin-top: 12px;
+    transition: gap 0.2s;
+  }
+  .video-card:hover .video-link-label { gap: 8px; }
+
+  /* Additional appearances */
+  .acclaim-extras {
+    border-top: 1px solid #1a1a1a;
+    padding-top: 48px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+  }
+  .acclaim-extras.visible { opacity: 1; transform: translateY(0); }
+
+  .acclaim-extras-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .acclaim-extras-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, #2a2a2a, transparent);
+  }
+
+  .acclaim-extras-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .acclaim-extra-pill {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: var(--mono);
+    text-transform: uppercase;
+    color: #666;
+    border: 1px solid #222;
+    border-radius: 8px;
+    padding: 18px 20px;
+    background: #0a0a0a;
+    transition: border-color 0.3s, background 0.3s, transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .acclaim-extras.visible .acclaim-extra-pill {
+    opacity: 1;
+    transform: translateY(0);
+    transition: border-color 0.3s, background 0.3s,
+                transform 0.3s cubic-bezier(0.16,1,0.3,1),
+                opacity 0.6s ease, translate 0.6s ease;
+  }
+  .acclaim-extras.visible .acclaim-extra-pill:nth-child(1) { transition-delay: 0.05s; }
+  .acclaim-extras.visible .acclaim-extra-pill:nth-child(2) { transition-delay: 0.12s; }
+  .acclaim-extras.visible .acclaim-extra-pill:nth-child(3) { transition-delay: 0.19s; }
+  .acclaim-extras.visible .acclaim-extra-pill:nth-child(4) { transition-delay: 0.26s; }
+
+  .acclaim-extra-pill:hover {
+    border-color: #3a3a3a;
+    background: #111;
+    transform: translateY(-3px);
+  }
+  .acclaim-extra-num {
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    color: #333;
+  }
+  .acclaim-extra-name {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #aaa;
+    line-height: 1.4;
+  }
+  .acclaim-extra-loc {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: #444;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 767px) {
+    .acclaim-extras-list { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 767px) {
+    #acclaim { padding: 64px 20px 56px; }
+    .acclaim-grid { grid-template-columns: 1fr; gap: 16px; }
+    .play-circle { width: 44px; height: 44px; }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .acclaim-grid { grid-template-columns: 1fr 1fr; }
+  }
+  /* ══ END ACCLAIM VIDEO SECTION ══════════════════════ */
 
   /* ─── RESPONSIVE ────────────────────────────────── */
   @media (max-width: 768px) {
@@ -2122,11 +2460,121 @@
 
 
 
+<!-- ══════════ SECTION: GLOBAL ACCLAIM ══════════ -->
+<section id="acclaim">
+
+  <div class="acclaim-tag" id="acclaim-tag">
+    <span class="an">[ 04 ]</span>
+    <span class="al">Global Acclaim &amp; Validation</span>
+  </div>
+
+  <h2 class="acclaim-heading" id="acclaim-heading">
+    Recognised on the world's<br>most prestigious stages.
+  </h2>
+  <p class="acclaim-sub" id="acclaim-sub">
+    Abhishek Gupta and Open Droids Robotics have presented at international summits across Las Vegas, Geneva, San Francisco, Berlin and beyond — with recorded sessions as proof.
+  </p>
+
+  <div class="acclaim-grid" id="acclaim-grid">
+
+    <!-- CES 2025 -->
+    <a class="video-card" href="https://www.youtube.com/watch?v=Zld8HilE8RI" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/Zld8HilE8RI/maxresdefault.jpg"
+             onerror="this.src='https://img.youtube.com/vi/Zld8HilE8RI/hqdefault.jpg'"
+             alt="CES 2025 — Open Droids Robotics" loading="lazy">
+        <div class="video-play">
+          <div class="play-circle"><div class="play-triangle"></div></div>
+        </div>
+        <span class="video-badge">CES 2025 · Las Vegas</span>
+      </div>
+      <div class="video-body">
+        <div class="video-num">01 · Exhibitor &amp; Innovator</div>
+        <div class="video-title">CES 2025 — Venetian Expo Center, Las Vegas</div>
+        <div class="video-desc">Open Droids Robotics showcasing single-arm (R1D3) and dual-arm (R2D3) mobile manipulator platforms at the world's largest consumer technology exhibition.</div>
+        <div class="video-link-label">Watch Recording →</div>
+      </div>
+    </a>
+
+    <!-- UN/ITU -->
+    <a class="video-card" href="https://www.youtube.com/watch?v=WSwM8kcQqg8" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/WSwM8kcQqg8/maxresdefault.jpg"
+             onerror="this.src='https://img.youtube.com/vi/WSwM8kcQqg8/hqdefault.jpg'"
+             alt="UN/ITU AI for Good Summit — Abhishek Gupta" loading="lazy">
+        <div class="video-play">
+          <div class="play-circle"><div class="play-triangle"></div></div>
+        </div>
+        <span class="video-badge">UN / ITU · Geneva</span>
+      </div>
+      <div class="video-body">
+        <div class="video-num">02 · Keynote Speaker</div>
+        <div class="video-title">AI for Good Global Summit — UN/ITU, Geneva</div>
+        <div class="video-desc">Abhishek Gupta addressing the United Nations' flagship AI summit on the role of open-source robotics and embodied AI in inclusive global automation.</div>
+        <div class="video-link-label">Watch Session →</div>
+      </div>
+    </a>
+
+    <!-- Machine Minds Podcast -->
+    <a class="video-card" href="https://www.youtube.com/watch?v=-Lkl8__Yg-A" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/-Lkl8__Yg-A/maxresdefault.jpg"
+             onerror="this.src='https://img.youtube.com/vi/-Lkl8__Yg-A/hqdefault.jpg'"
+             alt="Machine Minds Podcast — Abhishek Gupta" loading="lazy">
+        <div class="video-play">
+          <div class="play-circle"><div class="play-triangle"></div></div>
+        </div>
+        <span class="video-badge">Machine Minds · Feb 2025</span>
+      </div>
+      <div class="video-body">
+        <div class="video-num">03 · Featured Interview</div>
+        <div class="video-title">Machine Minds Podcast — Feb 2025</div>
+        <div class="video-desc">"How AI and Open-Source Robotics Are Redefining Automation" — long-form interview covering platform philosophy, hardware design and the path to commercialisation.</div>
+        <div class="video-link-label">Watch Interview →</div>
+      </div>
+    </a>
+
+  </div><!-- /acclaim-grid -->
+
+  <div class="acclaim-extras" id="acclaim-extras">
+    <div class="acclaim-extras-label">Additional Global Appearances</div>
+    <div class="acclaim-extras-list">
+
+      <div class="acclaim-extra-pill">
+        <div class="acclaim-extra-num">04</div>
+        <div class="acclaim-extra-name">Sequire Investor Summit</div>
+        <div class="acclaim-extra-loc">Puerto Rico, USA</div>
+      </div>
+
+      <div class="acclaim-extra-pill">
+        <div class="acclaim-extra-num">05</div>
+        <div class="acclaim-extra-name">Humanoids Summit</div>
+        <div class="acclaim-extra-loc">San Francisco, USA</div>
+      </div>
+
+      <div class="acclaim-extra-pill">
+        <div class="acclaim-extra-num">06</div>
+        <div class="acclaim-extra-name">IFA</div>
+        <div class="acclaim-extra-loc">Berlin, Germany</div>
+      </div>
+
+      <div class="acclaim-extra-pill">
+        <div class="acclaim-extra-num">07</div>
+        <div class="acclaim-extra-name">RoboBusiness</div>
+        <div class="acclaim-extra-loc">San Francisco, USA</div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+
 <!-- ══════════ SECTION: FOUNDER ══════════ -->
 <section id="founder">
 
   <div class="founder-tag" id="founder-tag">
-    <span class="fn">[ 03 ]</span>
+    <span class="fn">[ 05 ]</span>
     <span class="fl">The Founder</span>
   </div>
 
@@ -2247,7 +2695,7 @@
       </div>
       <div>
         <div class="contact-item-label anim-fade-up anim-d4" id="ci-3">Pilot Duration</div>
-        <div class="contact-item-value">180 days → 6 months</div>
+        <div class="contact-item-value">90 days → 6 months</div>
       </div>
       <a href="https://calendly.com/abhi-ometaura/30min" target="_blank" class="calendly-cta">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -2302,7 +2750,7 @@
     { name: "Abhishek Gupta — Founder", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871696/ChatGPT_Image_May_27_2026_02_14_27_PM_1_tdrrmf.png" },
     { name: "The $800B Logistics Problem", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871252/01d98a63-915e-4e9e-8098-d118cef3e431-removebg-preview_gyrccr.png" },
     { name: "Omi-1: How It Works", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871809/closeup-futuristic-robot-head-showcasing-advanced-artificial-intelligence-technology-innovation-robotics_1193327-19706_gdxjeb.png" },
-    { name: "180-Day Pilot Programme", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871740/ChatGPT_Image_May_27_2026_02_18_18_PM_1_zshu52.png" },
+    { name: "90-Day Pilot Programme", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871740/ChatGPT_Image_May_27_2026_02_18_18_PM_1_zshu52.png" },
     { name: "Global Acclaim & Validation", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871252/1d8f84ae-4b48-4d38-aa64-1a1b2adf43f2-removebg-preview_uir2hf.png" }
   ];
 
@@ -2739,6 +3187,28 @@
       });
     }, { threshold: 0.1 });
     codevIO.observe(codevTableEl);
+  }
+
+  // ── Acclaim section observers ──
+  observe('#acclaim-tag',     'visible', { threshold: 0.3 });
+  observe('#acclaim-heading', 'visible', { threshold: 0.2 });
+  observe('#acclaim-sub',     'visible', { threshold: 0.2 });
+  observe('#acclaim-extras',  'visible', { threshold: 0.3 });
+
+  // Video cards stagger
+  const acclaimGrid = document.getElementById('acclaim-grid');
+  if (acclaimGrid) {
+    const acclaimIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.video-card').forEach((card, i) => {
+            setTimeout(() => card.classList.add('visible'), i * 120);
+          });
+          acclaimIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    acclaimIO.observe(acclaimGrid);
   }
 
   // ── Founder section observers ──
