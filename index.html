@@ -1534,6 +1534,223 @@
   }
   /* ══ END FOUNDER SECTION ════════════════════════════ */
 
+
+  /* ══ FIRST MOVER + CO-DEV SECTION ══════════════════ */
+  #firstmover {
+    position: relative;
+    width: 100%;
+    background: var(--bg);
+    z-index: 21;
+    padding: 96px 64px 80px;
+    border-top: 1px solid rgba(17,17,17,0.06);
+  }
+
+  /* Hero statement */
+  .fm-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fm-tag.visible { opacity: 1; transform: translateY(0); }
+  .fm-tag .fn { color: #999; }
+  .fm-tag .fl { color: #111; font-weight: 700; margin-left: 8px; }
+
+  .fm-statement {
+    max-width: 720px;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.95s cubic-bezier(0.16,1,0.3,1) 0.1s,
+                transform 0.95s cubic-bezier(0.16,1,0.3,1) 0.1s;
+  }
+  .fm-statement.visible { opacity: 1; transform: translateY(0); }
+
+  .fm-headline {
+    font-family: var(--sans);
+    font-size: clamp(2rem, 3.5vw, 3.4rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 1.08;
+    color: #111;
+    margin-bottom: 24px;
+  }
+
+  .fm-sub {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 400;
+    color: #555;
+    line-height: 1.7;
+    letter-spacing: -0.01em;
+    max-width: 560px;
+    margin-bottom: 32px;
+  }
+
+  .fm-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: #fff;
+    background: #111;
+    border: 1px solid #111;
+    border-radius: 6px;
+    padding: 13px 24px;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+    transition: all 0.25s ease;
+    margin-bottom: 80px;
+  }
+  .fm-cta:hover {
+    background: #fff;
+    color: #111;
+    box-shadow: 3px 3px 0 rgba(17,17,17,0.4);
+    transform: translateY(-1px);
+  }
+  .fm-cta .fm-arr {
+    display: inline-block;
+    transition: transform 0.2s ease;
+  }
+  .fm-cta:hover .fm-arr { transform: translateX(3px); }
+
+  /* Co-dev table */
+  .codev-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #bbb;
+    margin-bottom: 16px;
+    opacity: 0;
+    transition: opacity 0.6s ease 0.3s;
+  }
+  .codev-label.visible { opacity: 1; }
+
+  .codev-title {
+    font-family: var(--sans);
+    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    color: #111;
+    margin-bottom: 32px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease 0.15s, transform 0.8s ease 0.15s;
+  }
+  .codev-title.visible { opacity: 1; transform: translateY(0); }
+
+  .codev-table {
+    width: 100%;
+    border: 1px solid rgba(17,17,17,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease 0.2s, transform 0.9s ease 0.2s;
+  }
+  .codev-table.visible { opacity: 1; transform: translateY(0); }
+
+  .codev-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .codev-head-cell {
+    padding: 16px 28px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .codev-head-cell.you {
+    background: #0f1a2e;
+    color: #4a90e2;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+  .codev-head-cell.we {
+    background: #1a1200;
+    color: #d4960a;
+  }
+
+  .codev-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid rgba(17,17,17,0.07);
+    transition: background 0.2s;
+  }
+  .codev-row:hover { background: rgba(17,17,17,0.02); }
+
+  .codev-cell {
+    padding: 18px 28px;
+    font-family: var(--sans);
+    font-size: 13px;
+    color: #333;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .codev-cell + .codev-cell {
+    border-left: 1px solid rgba(17,17,17,0.07);
+  }
+  .codev-arrow {
+    color: #4a90e2;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .codev-cell.we-cell .codev-arrow { color: #d4960a; }
+
+  /* Strategic note */
+  .codev-note {
+    padding: 20px 28px;
+    background: rgba(74,90,226,0.04);
+    border-top: 1px solid rgba(74,144,226,0.15);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    opacity: 0;
+    transition: opacity 0.7s ease 0.5s;
+  }
+  .codev-note.visible { opacity: 1; }
+  .codev-star {
+    color: #7b6cf6;
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .codev-note-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #7b6cf6;
+    margin-bottom: 5px;
+  }
+  .codev-note-text {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: #555;
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 767px) {
+    #firstmover { padding: 64px 20px 60px; }
+    .codev-head, .codev-row { grid-template-columns: 1fr; }
+    .codev-cell + .codev-cell { border-left: none; border-top: 1px solid rgba(17,17,17,0.07); }
+    .codev-head-cell.you { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .fm-cta { margin-bottom: 56px; }
+  }
+  /* ══ END FIRST MOVER + CO-DEV SECTION ══════════════ */
+
   /* ─── RESPONSIVE ────────────────────────────────── */
   @media (max-width: 768px) {
     #why { padding: 64px 20px 0; }
@@ -1731,7 +1948,76 @@
     <span class="lbl">Why It Matters</span>
   </div>
 
-  <h2 class="why-heading" id="why-heading">
+  <!-- FIRST MOVER STATEMENT + CO-DEV TABLE -->
+  <div id="firstmover-inline">
+
+    <!-- Statement -->
+    <div class="fm-statement" id="fm-statement">
+      <h2 class="fm-headline">
+        The First-Mover Position<br>
+        in Warehouse Automation<br>
+        Is Available Now.
+      </h2>
+      <p class="fm-sub">
+        We are selecting one co-development partner for the inaugural Omi-1 pilot.
+        One meeting is all it takes to understand if your operation is the right fit.
+      </p>
+      <a href="https://calendly.com/abhi-ometaura/30min" target="_blank" class="fm-cta">
+        Schedule a Meeting <span class="fm-arr">→</span>
+      </a>
+    </div>
+
+    <!-- Co-Dev Table heading -->
+    <div class="codev-label" id="codev-label">Co-Development Partnership</div>
+    <div class="codev-title" id="codev-title">What Each Partner Brings</div>
+
+    <!-- Table -->
+    <div class="codev-table" id="codev-table">
+
+      <div class="codev-head">
+        <div class="codev-head-cell you">You Bring</div>
+        <div class="codev-head-cell we">We Bring</div>
+      </div>
+
+      <div class="codev-row">
+        <div class="codev-cell"><span class="codev-arrow">→</span>Operational requirements &amp; workflow knowledge</div>
+        <div class="codev-cell we-cell"><span class="codev-arrow">→</span>Complete Omi-1 hardware design, software &amp; fabrication</div>
+      </div>
+      <div class="codev-row">
+        <div class="codev-cell"><span class="codev-arrow">→</span>Live warehouse environment for deployment</div>
+        <div class="codev-cell we-cell"><span class="codev-arrow">→</span>ROS2/Nav2 autonomous navigation stack</div>
+      </div>
+      <div class="codev-row">
+        <div class="codev-cell"><span class="codev-arrow">→</span>WMS / ERP integration context</div>
+        <div class="codev-cell we-cell"><span class="codev-arrow">→</span>Edge AI inference — 40 TOPS, 60fps vision</div>
+      </div>
+      <div class="codev-row">
+        <div class="codev-cell"><span class="codev-arrow">→</span>Market validation and real commercial data</div>
+        <div class="codev-cell we-cell"><span class="codev-arrow">→</span>Modular end-effectors — majority SKU coverage</div>
+      </div>
+      <div class="codev-row">
+        <div class="codev-cell"><span class="codev-arrow">→</span>Client relationships and industry credibility</div>
+        <div class="codev-cell we-cell"><span class="codev-arrow">→</span>Engineering support team on-site throughout</div>
+      </div>
+      <div class="codev-row">
+        <div class="codev-cell"><span class="codev-arrow">→</span>Pilot investment — structured, fair, protected</div>
+        <div class="codev-cell we-cell"><span class="codev-arrow">→</span>Pre-order rights &amp; preferred pricing for fleet</div>
+      </div>
+
+      <div class="codev-note" id="codev-note">
+        <div class="codev-star">★</div>
+        <div>
+          <div class="codev-note-label">Strategic Partners Only</div>
+          <div class="codev-note-text">Select co-development partners may be offered equity participation in Ometaura AI based on mutually agreed strategic and commercial terms.</div>
+        </div>
+      </div>
+
+    </div><!-- /codev-table -->
+
+  </div><!-- /firstmover-inline -->
+
+  <!-- MARKET STAT HEADING (moved below) -->
+  <h2 class="why-heading" id="why-heading" style="margin-top:80px;">
     Warehouse picking is 55% of logistics costs.<br>80% of facilities still run entirely on manual labour.
   </h2>
 
@@ -1961,7 +2247,7 @@
       </div>
       <div>
         <div class="contact-item-label anim-fade-up anim-d4" id="ci-3">Pilot Duration</div>
-        <div class="contact-item-value">90 days → 6 months</div>
+        <div class="contact-item-value">180 days → 6 months</div>
       </div>
       <a href="https://calendly.com/abhi-ometaura/30min" target="_blank" class="calendly-cta">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -2016,7 +2302,7 @@
     { name: "Abhishek Gupta — Founder", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871696/ChatGPT_Image_May_27_2026_02_14_27_PM_1_tdrrmf.png" },
     { name: "The $800B Logistics Problem", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871252/01d98a63-915e-4e9e-8098-d118cef3e431-removebg-preview_gyrccr.png" },
     { name: "Omi-1: How It Works", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871809/closeup-futuristic-robot-head-showcasing-advanced-artificial-intelligence-technology-innovation-robotics_1193327-19706_gdxjeb.png" },
-    { name: "90-Day Pilot Programme", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871740/ChatGPT_Image_May_27_2026_02_18_18_PM_1_zshu52.png" },
+    { name: "180-Day Pilot Programme", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871740/ChatGPT_Image_May_27_2026_02_18_18_PM_1_zshu52.png" },
     { name: "Global Acclaim & Validation", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871252/1d8f84ae-4b48-4d38-aa64-1a1b2adf43f2-removebg-preview_uir2hf.png" }
   ];
 
@@ -2425,6 +2711,35 @@
   const contactGrid = document.querySelector('.contact-grid');
   if (contactGrid) contactIO.observe(contactGrid);
 
+
+  // ── First mover + co-dev observers ──
+  observe('#fm-statement',  'visible', { threshold: 0.15 });
+  observe('#codev-label',   'visible', { threshold: 0.2 });
+  observe('#codev-title',   'visible', { threshold: 0.2 });
+  observe('#codev-table',   'visible', { threshold: 0.1 });
+  observe('#codev-note',    'visible', { threshold: 0.5 });
+
+  // Stagger codev rows
+  const codevTableEl = document.getElementById('codev-table');
+  if (codevTableEl) {
+    const codevIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.codev-row').forEach((row, i) => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateX(-12px)';
+            row.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            setTimeout(() => {
+              row.style.opacity = '1';
+              row.style.transform = 'translateX(0)';
+            }, i * 80 + 200);
+          });
+          codevIO.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    codevIO.observe(codevTableEl);
+  }
 
   // ── Founder section observers ──
   observe('#founder-tag',      'visible', { threshold: 0.3 });
