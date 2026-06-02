@@ -27,6 +27,7 @@
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
+  body.loading { overflow: hidden; }
 
   ::selection { background: #111; color: #fff; }
 
@@ -55,40 +56,33 @@
     transition: opacity 1.4s ease;
   }
   #hero-video.visible { opacity: 1; }
-  /* On mobile: contain so full video is visible */
+  /* Desktop: gradient overlay so text stays readable */
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(240,240,238,0.5) 0%,
+      rgba(240,240,238,0.08) 50%,
+      rgba(240,240,238,0.15) 100%
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+  /* Mobile: cover + top-positioned + stronger bottom fade for text */
   @media (max-width: 767px) {
     #hero-video {
-      object-fit: contain;
-      background: #f0f0ee;
+      object-fit: cover;
+      object-position: center 20%;
     }
-    /* Darken hero bg slightly so text remains legible over video */
     #hero::before {
-      content: '';
-      position: absolute; inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(240,240,238,0.35) 0%,
-        rgba(240,240,238,0.1) 40%,
-        rgba(240,240,238,0.55) 85%,
-        rgba(240,240,238,0.85) 100%
+        rgba(240,240,238,0.15) 0%,
+        rgba(240,240,238,0.05) 35%,
+        rgba(240,240,238,0.6) 70%,
+        rgba(240,240,238,0.92) 100%
       );
-      z-index: 1;
-      pointer-events: none;
-    }
-  }
-  /* Desktop: gradient overlay so bottom text stays readable */
-  @media (min-width: 768px) {
-    #hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(
-        135deg,
-        rgba(240,240,238,0.55) 0%,
-        rgba(240,240,238,0.1) 50%,
-        rgba(240,240,238,0.2) 100%
-      );
-      z-index: 1;
-      pointer-events: none;
     }
   }
 
@@ -2128,6 +2122,150 @@
   }
   /* ══ END ACCLAIM VIDEO SECTION ══════════════════════ */
 
+
+  /* ══ LOADING SCREEN ══════════════════════════════════ */
+  #loader {
+    position: fixed;
+    inset: 0;
+    background: #050505;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 48px 56px;
+    overflow: hidden;
+    transition: clip-path 0.9s cubic-bezier(0.76,0,0.24,1) 0.1s,
+                opacity 0.4s ease 0.8s;
+  }
+  #loader.done {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Top bar */
+  .loader-top {
+    position: absolute;
+    top: 48px; left: 56px; right: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .loader-brand {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #888;
+  }
+  .loader-brand span { color: #4a90e2; }
+  .loader-status {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #333;
+  }
+
+  /* Centre: big wordmark */
+  .loader-wordmark {
+    position: absolute;
+    top: 50%; left: 56px;
+    transform: translateY(-50%);
+    font-family: var(--sans);
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.05em;
+    color: #1a1a1a;
+    line-height: 1;
+    user-select: none;
+    overflow: hidden;
+  }
+  .loader-wordmark-inner {
+    display: block;
+    transform: translateY(100%);
+    animation: loaderWordUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+  }
+  @keyframes loaderWordUp {
+    to { transform: translateY(0); }
+  }
+  .loader-wordmark em {
+    font-style: normal;
+    color: #4a90e2;
+  }
+
+  /* Tagline */
+  .loader-tagline {
+    position: absolute;
+    top: calc(50% + clamp(3.5rem, 9vw, 8.5rem));
+    left: 56px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #444;
+    opacity: 0;
+    animation: loaderFadeIn 0.6s ease 0.7s forwards;
+  }
+  @keyframes loaderFadeIn { to { opacity: 1; } }
+
+  /* Bottom bar */
+  .loader-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .loader-bar-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .loader-bar-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #d4960a;
+  }
+  .loader-bar-pct {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: #444;
+  }
+  .loader-bar-track {
+    width: 100%;
+    height: 1px;
+    background: #1a1a1a;
+    position: relative;
+    overflow: hidden;
+  }
+  .loader-bar-fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0%;
+    background: linear-gradient(90deg, #4a90e2, #7ab8f5);
+    box-shadow: 0 0 8px rgba(74,144,226,0.6);
+    transition: width 0.1s linear;
+  }
+  .loader-coords {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    color: #d4960a;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 767px) {
+    #loader { padding: 32px 24px; }
+    .loader-top { left: 24px; right: 24px; top: 32px; }
+    .loader-wordmark { left: 24px; }
+    .loader-tagline { left: 24px; }
+  }
+  /* ══ END LOADING SCREEN ══════════════════════════════ */
+
   /* ─── RESPONSIVE ────────────────────────────────── */
   @media (max-width: 768px) {
     #why { padding: 64px 20px 0; }
@@ -2143,7 +2281,32 @@
   }
 </style>
 </head>
-<body>
+<body class="loading">
+
+  <!-- ══ LOADING SCREEN ══ -->
+  <div id="loader">
+    <div class="loader-top">
+      <div class="loader-brand">OMETAURA <span>AI</span></div>
+      <div class="loader-status" id="loader-status">Initialising</div>
+    </div>
+
+    <div class="loader-wordmark">
+      <span class="loader-wordmark-inner">OMI&#8209;1</span>
+    </div>
+    <div class="loader-tagline">Autonomous Warehouse Robotics</div>
+
+    <div class="loader-bottom">
+      <div class="loader-bar-row">
+        <div class="loader-bar-label" id="loader-phase">System Boot</div>
+        <div class="loader-bar-pct" id="loader-pct">0%</div>
+      </div>
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill" id="loader-fill"></div>
+      </div>
+      <div class="loader-coords" id="loader-coords">28.6139° N · 77.2090° E · DELHI, IN</div>
+    </div>
+  </div>
+
 
 <!-- ══════════ SECTION 1: HERO ══════════ -->
 <section id="hero">
@@ -2734,7 +2897,7 @@
       </div>
       <div>
         <div class="contact-item-label anim-fade-up anim-d4" id="ci-3">Pilot Duration</div>
-        <div class="contact-item-value">180 days → 6 months</div>
+        <div class="contact-item-value">90 days → 6 months</div>
       </div>
       <a href="https://calendly.com/abhi-ometaura/30min" target="_blank" class="calendly-cta">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -2747,6 +2910,62 @@
 
 
 <script>
+
+  // ══ LOADING SCREEN ══════════════════════════════════
+  (function() {
+    const fill    = document.getElementById('loader-fill');
+    const pct     = document.getElementById('loader-pct');
+    const phase   = document.getElementById('loader-phase');
+    const status  = document.getElementById('loader-status');
+    const loader  = document.getElementById('loader');
+
+    const phases = [
+      { label: 'System Boot',          status: 'Initialising',    end: 18  },
+      { label: 'Loading Assets',       status: 'Loading',         end: 42  },
+      { label: 'Calibrating Systems',  status: 'Calibrating',     end: 68  },
+      { label: 'Vision Stack Ready',   status: 'Vision Online',   end: 85  },
+      { label: 'Navigation Online',    status: 'Nav Ready',       end: 96  },
+      { label: 'Launch',               status: 'Ready',           end: 100 },
+    ];
+
+    let current = 0;
+    let progress = 0;
+    const totalDuration = 2600; // ms
+    const interval = 22;
+    const steps = totalDuration / interval;
+    const increment = 100 / steps;
+
+    const timer = setInterval(() => {
+      progress = Math.min(100, progress + increment * (0.8 + Math.random() * 0.5));
+
+      // Update phase label
+      for (let i = 0; i < phases.length; i++) {
+        if (progress <= phases[i].end) {
+          if (current !== i) {
+            current = i;
+            phase.textContent  = phases[i].label;
+            status.textContent = phases[i].status;
+          }
+          break;
+        }
+      }
+
+      fill.style.width  = progress + '%';
+      pct.textContent   = Math.round(progress) + '%';
+
+      if (progress >= 100) {
+        clearInterval(timer);
+        setTimeout(() => {
+          document.body.classList.remove('loading');
+          loader.classList.add('done');
+          // Remove from DOM after transition
+          setTimeout(() => loader.remove(), 1200);
+        }, 220);
+      }
+    }, interval);
+  })();
+  // ══ END LOADING SCREEN ══════════════════════════════
+
   // ── VIDEO DELAY ──────────────────────────────────
   setTimeout(() => {
     document.getElementById('hero-video').classList.add('visible');
@@ -2790,7 +3009,7 @@
     { name: "Abhishek Gupta — Founder", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871696/ChatGPT_Image_May_27_2026_02_14_27_PM_1_tdrrmf.png" },
     { name: "The $800B Logistics Problem", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871252/01d98a63-915e-4e9e-8098-d118cef3e431-removebg-preview_gyrccr.png" },
     { name: "Omi-1: How It Works", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871809/closeup-futuristic-robot-head-showcasing-advanced-artificial-intelligence-technology-innovation-robotics_1193327-19706_gdxjeb.png" },
-    { name: "180-Day Pilot Programme", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871740/ChatGPT_Image_May_27_2026_02_18_18_PM_1_zshu52.png" },
+    { name: "90-Day Pilot Programme", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871740/ChatGPT_Image_May_27_2026_02_18_18_PM_1_zshu52.png" },
     { name: "Global Acclaim & Validation", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871252/1d8f84ae-4b48-4d38-aa64-1a1b2adf43f2-removebg-preview_uir2hf.png" }
   ];
 
