@@ -48,32 +48,35 @@
   #hero-video {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center center;
     pointer-events: none;
     z-index: 0;
     opacity: 0;
     transition: opacity 1.4s ease;
+    background: #f0f0ee;
   }
   #hero-video.visible { opacity: 1; }
-  /* Desktop: gradient overlay so text stays readable */
+  /* Desktop: light gradient overlay for text readability */
   #hero::before {
     content: '';
     position: absolute; inset: 0;
     background: linear-gradient(
-      135deg,
-      rgba(240,240,238,0.5) 0%,
-      rgba(240,240,238,0.08) 50%,
-      rgba(240,240,238,0.15) 100%
+      to bottom,
+      rgba(240,240,238,0.2) 0%,
+      rgba(240,240,238,0.0) 40%,
+      rgba(240,240,238,0.5) 80%,
+      rgba(240,240,238,0.85) 100%
     );
     z-index: 1;
     pointer-events: none;
   }
-  /* Mobile: cover + top-positioned + stronger bottom fade for text */
+  /* Mobile: cover + top-positioned + stronger bottom fade */
   @media (max-width: 767px) {
     #hero-video {
       object-fit: cover;
       object-position: center 20%;
+      background: #f0f0ee;
     }
     #hero::before {
       background: linear-gradient(
@@ -1865,9 +1868,12 @@
   /* Video grid */
   .acclaim-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
     margin-bottom: 56px;
+  }
+  @media (max-width: 1100px) {
+    .acclaim-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   .video-card {
@@ -2116,10 +2122,9 @@
     #acclaim { padding: 64px 20px 56px; }
     .acclaim-grid { grid-template-columns: 1fr; gap: 16px; }
     .play-circle { width: 44px; height: 44px; }
+    .play-triangle { border-left-width: 14px; border-top-width: 8px; border-bottom-width: 8px; }
   }
-  @media (min-width: 768px) and (max-width: 1023px) {
-    .acclaim-grid { grid-template-columns: 1fr 1fr; }
-  }
+
   /* ══ END ACCLAIM VIDEO SECTION ══════════════════════ */
 
 
@@ -2131,12 +2136,11 @@
     z-index: 99999;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding: 48px 56px;
+    justify-content: space-between;
+    padding: 40px 48px 44px;
     overflow: hidden;
     transition: clip-path 0.9s cubic-bezier(0.76,0,0.24,1) 0.1s,
-                opacity 0.4s ease 0.8s;
+                opacity 0.4s ease 0.85s;
   }
   #loader.done {
     clip-path: inset(0 0 100% 0);
@@ -2144,20 +2148,20 @@
     pointer-events: none;
   }
 
-  /* Top bar */
+  /* Top row */
   .loader-top {
-    position: absolute;
-    top: 48px; left: 56px; right: 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+    flex-shrink: 0;
   }
   .loader-brand {
     font-family: var(--mono);
     font-size: 11px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #888;
+    color: #555;
   }
   .loader-brand span { color: #4a90e2; }
   .loader-status {
@@ -2168,54 +2172,52 @@
     color: #333;
   }
 
-  /* Centre: big wordmark */
+  /* Middle: wordmark + tagline stacked */
+  .loader-middle {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px 0 0;
+    overflow: hidden;
+  }
   .loader-wordmark {
-    position: absolute;
-    top: 50%; left: 56px;
-    transform: translateY(-50%);
     font-family: var(--sans);
-    font-size: clamp(3rem, 8vw, 7rem);
+    font-size: clamp(3.5rem, 12vw, 7.5rem);
     font-weight: 500;
     letter-spacing: -0.05em;
-    color: #1a1a1a;
+    color: #1c1c1c;
     line-height: 1;
     user-select: none;
     overflow: hidden;
+    margin-bottom: 16px;
   }
   .loader-wordmark-inner {
     display: block;
-    transform: translateY(100%);
-    animation: loaderWordUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+    transform: translateY(110%);
+    animation: loaderWordUp 0.85s cubic-bezier(0.16,1,0.3,1) 0.15s forwards;
   }
   @keyframes loaderWordUp {
     to { transform: translateY(0); }
   }
-  .loader-wordmark em {
-    font-style: normal;
-    color: #4a90e2;
-  }
-
-  /* Tagline */
   .loader-tagline {
-    position: absolute;
-    top: calc(50% + clamp(3.5rem, 9vw, 8.5rem));
-    left: 56px;
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #444;
+    color: #3a3a3a;
     opacity: 0;
-    animation: loaderFadeIn 0.6s ease 0.7s forwards;
+    animation: loaderFadeIn 0.6s ease 0.65s forwards;
   }
   @keyframes loaderFadeIn { to { opacity: 1; } }
 
-  /* Bottom bar */
+  /* Bottom: progress bar */
   .loader-bottom {
     width: 100%;
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
   }
   .loader-bar-row {
     display: flex;
@@ -2224,45 +2226,63 @@
   }
   .loader-bar-label {
     font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: 0.18em;
+    font-size: 10px;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: #d4960a;
   }
   .loader-bar-pct {
     font-family: var(--mono);
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 0.12em;
-    color: #444;
+    color: #555;
   }
   .loader-bar-track {
     width: 100%;
-    height: 1px;
-    background: #1a1a1a;
+    height: 1.5px;
+    background: #1e1e1e;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+    border-radius: 2px;
   }
   .loader-bar-fill {
     position: absolute;
-    left: 0; top: 0; bottom: 0;
+    left: 0; top: -0.5px; bottom: -0.5px;
     width: 0%;
-    background: linear-gradient(90deg, #4a90e2, #7ab8f5);
-    box-shadow: 0 0 8px rgba(74,144,226,0.6);
-    transition: width 0.1s linear;
+    background: linear-gradient(90deg, #2a6abf, #4a90e2, #7ab8f5);
+    box-shadow: 0 0 10px rgba(74,144,226,0.7), 0 0 20px rgba(74,144,226,0.3);
+    transition: width 0.12s linear;
+    border-radius: 2px;
+  }
+  /* Glowing tip on fill bar */
+  .loader-bar-fill::after {
+    content: '';
+    position: absolute;
+    right: -1px; top: -2px; bottom: -2px;
+    width: 4px;
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 0 8px #4a90e2, 0 0 16px rgba(74,144,226,0.8);
+    opacity: 0.9;
   }
   .loader-coords {
     font-family: var(--mono);
     font-size: 9px;
     letter-spacing: 0.14em;
     color: #d4960a;
-    margin-top: 4px;
+    margin-top: 2px;
+    opacity: 0.8;
   }
 
+  /* Mobile */
   @media (max-width: 767px) {
-    #loader { padding: 32px 24px; }
-    .loader-top { left: 24px; right: 24px; top: 32px; }
-    .loader-wordmark { left: 24px; }
-    .loader-tagline { left: 24px; }
+    #loader { padding: 28px 20px 32px; }
+    .loader-wordmark { font-size: clamp(3rem, 15vw, 5rem); }
+    .loader-brand { font-size: 10px; }
+    .loader-status { font-size: 9px; }
+    .loader-tagline { font-size: 9px; letter-spacing: 0.16em; }
+    .loader-bar-label, .loader-bar-pct { font-size: 9px; }
+    .loader-coords { font-size: 8px; }
   }
   /* ══ END LOADING SCREEN ══════════════════════════════ */
 
@@ -2290,10 +2310,12 @@
       <div class="loader-status" id="loader-status">Initialising</div>
     </div>
 
-    <div class="loader-wordmark">
-      <span class="loader-wordmark-inner">OMI&#8209;1</span>
+    <div class="loader-middle">
+      <div class="loader-wordmark">
+        <span class="loader-wordmark-inner">OMI&#8209;1</span>
+      </div>
+      <div class="loader-tagline">Autonomous Warehouse Robotics</div>
     </div>
-    <div class="loader-tagline">Autonomous Warehouse Robotics</div>
 
     <div class="loader-bottom">
       <div class="loader-bar-row">
@@ -2736,6 +2758,25 @@
       </div>
     </a>
 
+    <!-- Global Sources — Consumer AI Gadgets Conference -->
+    <a class="video-card" href="https://www.youtube.com/watch?v=lBouH2_PEHI" target="_blank" rel="noopener">
+      <div class="video-thumb">
+        <img src="https://img.youtube.com/vi/lBouH2_PEHI/maxresdefault.jpg"
+             onerror="this.src='https://img.youtube.com/vi/lBouH2_PEHI/hqdefault.jpg'"
+             alt="Global Sources — Consumer AI Gadgets Conference" loading="lazy">
+        <div class="video-play">
+          <div class="play-circle"><div class="play-triangle"></div></div>
+        </div>
+        <span class="video-badge">Global Sources · Consumer AI</span>
+      </div>
+      <div class="video-body">
+        <div class="video-num">04 · Conference Speaker</div>
+        <div class="video-title">Global Sources — Consumer AI Gadgets Conference</div>
+        <div class="video-desc">"The Next Trillion" — Abhishek Gupta on the next wave of consumer AI and autonomous robotics redefining trillion-dollar logistics and warehouse markets globally.</div>
+        <div class="video-link-label">Watch Talk →</div>
+      </div>
+    </a>
+
   </div><!-- /acclaim-grid -->
 
   <div class="acclaim-extras" id="acclaim-extras">
@@ -3005,13 +3046,12 @@
 
   // ── CHAPTER DATA ─────────────────────────────────
   const chapters = [
-    { name: "Omi-1 — In Action", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779909003/ai-robot-robots-represent-rapidly-evolving-field-intersection-robotics-artificial-intelligence-human-computer-306966735_lxazbk.png" },
-    { name: "Abhishek Gupta — Founder", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871696/ChatGPT_Image_May_27_2026_02_14_27_PM_1_tdrrmf.png" },
-    { name: "The $800B Logistics Problem", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871252/01d98a63-915e-4e9e-8098-d118cef3e431-removebg-preview_gyrccr.png" },
-    { name: "Omi-1: How It Works", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871809/closeup-futuristic-robot-head-showcasing-advanced-artificial-intelligence-technology-innovation-robotics_1193327-19706_gdxjeb.png" },
-    { name: "90-Day Pilot Programme", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871740/ChatGPT_Image_May_27_2026_02_18_18_PM_1_zshu52.png" },
-    { name: "Global Acclaim & Validation", img: "https://res.cloudinary.com/dajekho84/image/upload/v1779871252/1d8f84ae-4b48-4d38-aa64-1a1b2adf43f2-removebg-preview_uir2hf.png" }
-  ];
+ { name: "Omi-1 — In Action", img: "https://res.cloudinary.com/dajekho84/video/upload/v1780088644/Untitled_design_1_vd3vch.mp4" },
+{ name: "Abhishek Gupta — Founder", img: "https://res.cloudinary.com/dajekho84/image/upload/v1780476639/475d4985-bfab-46ee-8612-504f2cf06dd6_removalai_preview_eudywb.png" },
+{ name: "The $800B Logistics Problem", img: "https://res.cloudinary.com/dajekho84/image/upload/v1780476612/105a1134-5756-4943-8dad-b8d70c918960_removalai_preview_w85oes.png" },
+{ name: "Omi-1: How It Works", img: "https://res.cloudinary.com/dajekho84/image/upload/v1780476576/9d93d0a8-fd51-4b65-9e24-fa4ce9404f54_removalai_preview_htbpi0.png" },
+{ name: "90-Day Pilot Programme", img: "https://res.cloudinary.com/dajekho84/image/upload/v1780476481/43f5d391-4743-4e33-b2f1-8e43b2c542c3_removalai_preview_pjhf2y.png" },
+{ name: "Global Acclaim & Validation", img: "https://res.cloudinary.com/dajekho84/image/upload/v1780476639/475d4985-bfab-46ee-8612-504f2cf06dd6_removalai_preview_eudywb.png" }
 
   let activeChapter = 2;
   let autoTimer;
