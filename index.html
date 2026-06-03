@@ -2139,11 +2139,11 @@
     justify-content: space-between;
     padding: 40px 48px 44px;
     overflow: hidden;
-    transition: clip-path 0.9s cubic-bezier(0.76,0,0.24,1) 0.1s,
-                opacity 0.4s ease 0.85s;
+    transition: transform 0.85s cubic-bezier(0.76,0,0.24,1) 0.05s,
+                opacity 0.35s ease 0.75s;
   }
   #loader.done {
-    clip-path: inset(0 0 100% 0);
+    transform: translateY(-100%);
     opacity: 0;
     pointer-events: none;
   }
@@ -2300,8 +2300,13 @@
   @media (min-width: 768px) {
   }
 </style>
+<script>
+  // Lock scroll immediately before any content renders
+  document.documentElement.style.overflow = 'hidden';
+  document.documentElement.style.height = '100%';
+</script>
 </head>
-<body class="loading">
+<body class="loading" style="overflow:hidden; height:100%;">
 
   <!-- ══ LOADING SCREEN ══ -->
   <div id="loader">
@@ -2952,59 +2957,62 @@
 
 <script>
 
-  // ══ LOADING SCREEN ══════════════════════════════════
-  (function() {
-    const fill    = document.getElementById('loader-fill');
-    const pct     = document.getElementById('loader-pct');
-    const phase   = document.getElementById('loader-phase');
-    const status  = document.getElementById('loader-status');
-    const loader  = document.getElementById('loader');
+  // ══ LOADING SCREEN — started from DOMContentLoaded ══
+  window._startLoader = function() {
+    const fill   = document.getElementById('loader-fill');
+    const pct    = document.getElementById('loader-pct');
+    const phase  = document.getElementById('loader-phase');
+    const status = document.getElementById('loader-status');
+    const loader = document.getElementById('loader');
+    if (!loader || !fill) return;
 
     const phases = [
-      { label: 'System Boot',          status: 'Initialising',    end: 18  },
-      { label: 'Loading Assets',       status: 'Loading',         end: 42  },
-      { label: 'Calibrating Systems',  status: 'Calibrating',     end: 68  },
-      { label: 'Vision Stack Ready',   status: 'Vision Online',   end: 85  },
-      { label: 'Navigation Online',    status: 'Nav Ready',       end: 96  },
-      { label: 'Launch',               status: 'Ready',           end: 100 },
+      { label: 'System Boot',         status: 'Initialising',  end: 18  },
+      { label: 'Loading Assets',      status: 'Loading',       end: 42  },
+      { label: 'Calibrating Systems', status: 'Calibrating',   end: 68  },
+      { label: 'Vision Stack Ready',  status: 'Vision Online', end: 85  },
+      { label: 'Navigation Online',   status: 'Nav Ready',     end: 96  },
+      { label: 'Launch',              status: 'Ready',         end: 100 },
     ];
 
-    let current = 0;
-    let progress = 0;
-    const totalDuration = 2600; // ms
-    const interval = 22;
+    let current = 0, progress = 0;
+    const totalDuration = 2800;
+    const interval = 20;
     const steps = totalDuration / interval;
     const increment = 100 / steps;
 
     const timer = setInterval(() => {
-      progress = Math.min(100, progress + increment * (0.8 + Math.random() * 0.5));
+      progress = Math.min(100, progress + increment * (0.7 + Math.random() * 0.6));
 
-      // Update phase label
       for (let i = 0; i < phases.length; i++) {
         if (progress <= phases[i].end) {
           if (current !== i) {
             current = i;
-            phase.textContent  = phases[i].label;
-            status.textContent = phases[i].status;
+            if (phase)  phase.textContent  = phases[i].label;
+            if (status) status.textContent = phases[i].status;
           }
           break;
         }
       }
 
-      fill.style.width  = progress + '%';
-      pct.textContent   = Math.round(progress) + '%';
+      if (fill) fill.style.width = progress + '%';
+      if (pct)  pct.textContent  = Math.round(progress) + '%';
 
       if (progress >= 100) {
         clearInterval(timer);
         setTimeout(() => {
           document.body.classList.remove('loading');
+          document.body.style.overflow = '';
+          document.body.style.height = '';
+          document.documentElement.style.overflow = '';
+          document.documentElement.style.height = '';
           loader.classList.add('done');
-          // Remove from DOM after transition
-          setTimeout(() => loader.remove(), 1200);
-        }, 220);
+          setTimeout(() => { if (loader.parentNode) loader.parentNode.removeChild(loader); }, 1000);
+        }, 180);
       }
     }, interval);
-  })();
+  };
+  window._startLoader();
   // ══ END LOADING SCREEN ══════════════════════════════
 
   // ── VIDEO DELAY ──────────────────────────────────
