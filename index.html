@@ -55,11 +55,10 @@
     transition: opacity 1.4s ease;
   }
   #hero-video.visible { opacity: 1; }
-  /* On mobile: contain so full video is visible */
   @media (max-width: 767px) {
     #hero-video {
-      object-fit: contain;
-      background: #f0f0ee;
+      object-fit: cover;
+      object-position: center center;
     }
     /* Darken hero bg slightly so text remains legible over video */
     #hero::before {
@@ -456,16 +455,16 @@
     .hero-left { max-width: 100%; }
     .mobile-menu { padding: 20px; }
 
-    /* Mobile: robot raised above seam */
+    /* Mobile: robot bridging seam */
     .why-spacer { min-height: 80px !important; }
     #why { padding-bottom: 0 !important; min-height: auto !important; }
     .float-img-wrap {
-      width: min(260px, 80vw) !important;
+      width: min(220px, 72vw) !important;
       bottom: 0 !important;
-      transform: translateX(-50%) translateY(28%) !important;
+      transform: translateX(-50%) translateY(60%) !important;
     }
     .float-img-wrap.in-view {
-      transform: translateX(-50%) translateY(28%) !important;
+      transform: translateX(-50%) translateY(60%) !important;
     }
     .dark-head { padding: 36px 20px 32px !important; }
   }
@@ -545,7 +544,7 @@
   .pill:hover { border-color: #111; background: #111; color: #fff; }
   .pill svg { width: 14px; height: 14px; }
 
-  .why-spacer { min-height: 260px; }
+  .why-spacer { min-height: 0; }
 
   .why-footer {
     position: absolute; bottom: 0; left: 0; right: 0;
@@ -576,16 +575,16 @@
     position: absolute;
     bottom: 0;
     left: 50%;
-    transform: translateX(-50%) translateY(38%);
+    transform: translateX(-50%) translateY(65%);
     width: min(560px, 80vw);
     pointer-events: none;
-    z-index: 25;           /* above #why (z-index 20) and #dark (z-index 30 overridden below) */
+    z-index: 25;
     opacity: 0;
     transition: opacity 1.2s ease, transform 1.4s cubic-bezier(0.16,1,0.3,1);
   }
   .float-img-wrap.in-view {
     opacity: 1;
-    transform: translateX(-50%) translateY(35%);
+    transform: translateX(-50%) translateY(62%);
   }
   .float-img-wrap img {
     width: 100%;
@@ -598,7 +597,7 @@
   /* DARK HEADING */
   .dark-head {
     position: relative; z-index: 10;
-    padding: 56px 64px 64px;
+    padding: 120px 64px 64px;
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -1600,14 +1599,45 @@
   .fm-tag .fl { color: #111; font-weight: 700; margin-left: 8px; }
 
   .fm-statement {
-    max-width: 720px;
+    max-width: 1100px;
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
     opacity: 0;
     transform: translateY(36px);
     transition: opacity 0.95s cubic-bezier(0.16,1,0.3,1) 0.1s,
                 transform 0.95s cubic-bezier(0.16,1,0.3,1) 0.1s;
   }
   .fm-statement.visible { opacity: 1; transform: translateY(0); }
+  .fm-robot-img {
+    flex-shrink: 0;
+    width: clamp(280px, 36vw, 520px);
+    display: flex;
+    align-items: flex-end;
+  }
+  .fm-robot-img img {
+    width: 100%;
+    display: block;
+    mix-blend-mode: multiply;
+    filter: contrast(1.05);
+  }
+  .fm-text-col {
+    flex: 1;
+    min-width: 0;
+  }
+  @media (max-width: 767px) {
+    .fm-statement {
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+    }
+    .fm-robot-img {
+      width: clamp(160px, 55vw, 260px);
+      align-self: center;
+    }
+  }
 
   .fm-headline {
     font-family: var(--sans);
@@ -1871,8 +1901,8 @@
   /* Video grid */
   .acclaim-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
     margin-bottom: 56px;
   }
 
@@ -1926,7 +1956,7 @@
   }
   .video-card:hover .video-play { background: rgba(0,0,0,0.0); }
   .play-circle {
-    width: 52px; height: 52px;
+    width: 40px; height: 40px;
     border-radius: 50%;
     background: rgba(255,255,255,0.92);
     display: flex; align-items: center; justify-content: center;
@@ -1980,7 +2010,7 @@
 
   /* Card body */
   .video-body {
-    padding: 18px 20px 20px;
+    padding: 12px 14px 14px;
   }
   .video-num {
     font-family: var(--mono);
@@ -2003,7 +2033,7 @@
   }
   .video-title {
     font-family: var(--sans);
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 500;
     color: #fff;
     line-height: 1.45;
@@ -2012,7 +2042,7 @@
   }
   .video-desc {
     font-family: var(--sans);
-    font-size: 11px;
+    font-size: 10px;
     color: #666;
     line-height: 1.55;
   }
@@ -2330,18 +2360,25 @@
 
     <!-- Statement -->
     <div class="fm-statement" id="fm-statement">
-      <h2 class="fm-headline">
-        The First-Mover Position<br>
-        in Warehouse Automation<br>
-        Is Available Now.
-      </h2>
-      <p class="fm-sub">
-        We are selecting one co-development partner for the inaugural Omi-1 pilot.
-        One meeting is all it takes to understand if your operation is the right fit.
-      </p>
-      <a href="https://calendly.com/abhi-ometaura/30min" target="_blank" class="fm-cta">
-        Schedule a Meeting <span class="fm-arr">→</span>
-      </a>
+      <!-- Robot image — left column -->
+      <div class="fm-robot-img">
+        <img src="https://res.cloudinary.com/dajekho84/image/upload/v1780476576/9d93d0a8-fd51-4b65-9e24-fa4ce9404f54_removalai_preview_htbpi0.png" alt="Omi-1 Robot" crossorigin="anonymous">
+      </div>
+      <!-- Text — right column -->
+      <div class="fm-text-col">
+        <h2 class="fm-headline">
+          The First-Mover Position<br>
+          in Warehouse Automation<br>
+          Is Available Now.
+        </h2>
+        <p class="fm-sub">
+          We are selecting one co-development partner for the inaugural Omi-1 pilot.
+          One meeting is all it takes to understand if your operation is the right fit.
+        </p>
+        <a href="https://calendly.com/abhi-ometaura/30min" target="_blank" class="fm-cta">
+          Schedule a Meeting <span class="fm-arr">→</span>
+        </a>
+      </div>
     </div>
 
     <!-- Co-Dev Table heading -->
@@ -2423,10 +2460,8 @@
 
   <div class="why-spacer"></div>
 
-  <!-- Robot bridges white→dark seam, anchored to bottom of #why -->
-  <div class="float-img-wrap" id="float-img">
-    <img src="https://res.cloudinary.com/dajekho84/image/upload/v1780476576/9d93d0a8-fd51-4b65-9e24-fa4ce9404f54_removalai_preview_htbpi0.png" alt="Ometaura Robot" crossorigin="anonymous">
-  </div>
+  <!-- Robot float removed — now shown inline in fm-statement -->
+  <div class="float-img-wrap" id="float-img" style="display:none;"></div>
 
   <div class="why-footer">
     <span>OMI-1 · EMBODIED AI · WAREHOUSE AUTOMATION</span>
@@ -2805,7 +2840,7 @@
 
   // ── CHAPTER DATA ─────────────────────────────────
   const chapters = [
-    { name: "Omi-1 — In Action",          img: "https://res.cloudinary.com/dajekho84/video/upload/v1780088644/Untitled_design_1_vd3vch.mp4", type: "video" },
+    { name: "Omi-1 — In Action",          img: "https://res.cloudinary.com/dajekho84/image/upload/v1780545015/WhatsApp_Image_2026-05-29_at_2.57.11_PM-removebg-preview_yfkcsf.png" },
     { name: "Abhishek Gupta — Founder",    img: "https://res.cloudinary.com/dajekho84/image/upload/v1780476639/475d4985-bfab-46ee-8612-504f2cf06dd6_removalai_preview_eudywb.png" },
     { name: "The $800B Logistics Problem", img: "https://res.cloudinary.com/dajekho84/image/upload/v1780476612/105a1134-5756-4943-8dad-b8d70c918960_removalai_preview_w85oes.png" },
     { name: "Omi-1: How It Works",         img: "https://res.cloudinary.com/dajekho84/image/upload/v1780476576/9d93d0a8-fd51-4b65-9e24-fa4ce9404f54_removalai_preview_htbpi0.png" },
